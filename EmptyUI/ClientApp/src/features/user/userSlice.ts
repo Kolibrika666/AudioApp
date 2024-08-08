@@ -10,11 +10,6 @@ const initialState: IState = {
     showUpdateUserModal: false,
 };
 
-
-
-
-
-
 export const userSlice = createSlice({
     name: 'User',
     initialState,
