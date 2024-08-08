@@ -1,18 +1,28 @@
 import { httpClient } from "../../httpClient";
-import type { IUserFilterVm, UserVm } from "./user.models";
+import type { IUserFilterVm, UserCreateVm, UserUpdateVm, UserVm } from "./user.models";
 
 const endpoints = {
     GET_LIST: "/User/GetList",
-    CREATE_USER: "/User/Create"
+    CREATE_USER: "/User/Create",
+    DELETE_USER: "/User/Delete",
+    UPDATE_USER: "/User/Update"
 }
 
 export class UserApi {
 
     static getList(params?: IUserFilterVm,) {
-        return httpClient.get<Array<UserVm>>(endpoints.GET_LIST, { params});
+        return httpClient.get<Array<UserVm>>(endpoints.GET_LIST, { params });
     };
 
-    static createUser(params?: UserVm,) {
-        return httpClient.post<undefined>(endpoints.CREATE_USER, { params });
+    static createUser(data?: UserCreateVm,) {
+        return httpClient.post<UserVm>(endpoints.CREATE_USER, data);
+    };
+
+    static deleteUser(id: number) {
+        return httpClient.delete<UserVm>(endpoints.DELETE_USER, { params: { id } });
+    };
+    static updateUser(id: number, data: UserUpdateVm) {
+        return httpClient.put<UserVm>(endpoints.UPDATE_USER, data, { params: { userId: id } });
     };
 }
+

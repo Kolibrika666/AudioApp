@@ -36,7 +36,7 @@ export const UserTable = () => {
                 {
                     isLoading
                         ? '...Load'
-                        : <UserRow users={users}/>
+                        : <UserRow users={users} />
                 }
             </tbody>
         </Table>

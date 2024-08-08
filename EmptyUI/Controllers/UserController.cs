@@ -23,14 +23,14 @@ public class UserController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<UserVm>> GetList()
     {
-        return Ok(new List<UserVm>());  
-       // return Ok(_userService.GetList().Select(_ => new UserVm
-        //{
-           // Id = _.Id,
-           // Name = _.Name,
-            //Age = _.Age,
-           // LastName = _.LastName
-        //}));
+       
+        return Ok(_userService.GetList().Select(_ => new UserVm
+        {
+            Id = _.Id,
+            Name = _.Name,
+            Age = _.Age,
+            LastName = _.LastName
+        }));
     }
 
     [HttpGet]
@@ -72,7 +72,7 @@ public class UserController : ControllerBase
         return Ok(userBl);
     }
 
-    [HttpPost]
+    [HttpPut]
     public ActionResult<UserVm> Update([FromQuery]int userId, [FromBody]UserCreateVm vm)
     {
         var userBl = new UserUpdateBl

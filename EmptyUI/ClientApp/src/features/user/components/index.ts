@@ -3,5 +3,5 @@ import { UserTable } from "./UserTable";
 
 export {
     UserTable,
-    UserRow
+    UserRow,
 }

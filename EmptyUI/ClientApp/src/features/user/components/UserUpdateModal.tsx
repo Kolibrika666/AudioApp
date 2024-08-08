@@ -4,37 +4,36 @@ import "./styles.css"
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { UserApi } from "../user.api";
-import type { UserCreateVm, UserVm } from "../user.models";
+import type { UserUpdateVm, UserVm } from "../user.models";
 
-interface ICreateForm {
+interface IUpdateForm {
     name: string,
     lastName: string,
     age: number,
 }
 
-interface AddUserModalProps {
+interface UpdateUserModalProps {
     showState: boolean;
     setShow: Dispatch<SetStateAction<boolean>>;
+    user: UserVm;
 }
 
 
-export const AddUserModal = ({ setShow, showState }: AddUserModalProps) => {
+export const UserUpdateModal = ({ setShow, showState, user }: UpdateUserModalProps) => {
     const handleClose = () => setShow(false);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<ICreateForm>({
-    });
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<IUpdateForm>({ reValidateMode: "onSubmit", defaultValues: {...user}});
 
-    const onSubmit: SubmitHandler<ICreateForm> = (data) => {
-        const createVm: UserCreateVm = {
+    const onSubmit: SubmitHandler<IUpdateForm> = (data) => {
+        const updateVm: UserUpdateVm = {
             name: data.name,
             lastName: data.lastName,
             age: Number(data.age),
-        }
-        UserApi.createUser(createVm)
+        };
+        UserApi.updateUser(user.id, updateVm)
             .then(res => {
                 console.log(res)
             }).finally(() => handleClose())
     };
-
     return <>
         <Modal show={showState}
             onHide={handleClose}>
@@ -44,15 +43,15 @@ export const AddUserModal = ({ setShow, showState }: AddUserModalProps) => {
                 </Modal.Header>
                 <Modal.Body>
                     <p>Input name, last name and age</p>
-                    <form id="AddForm" onSubmit={handleSubmit(onSubmit)}>
+                    <Form id="UpdateForm">
                         <input {...register("name", { required: true })} placeholder="Name" />
                         <input {...register("lastName", { required: true })} placeholder="Last name" />
                         <input {...register("age", { required: true })} placeholder="Age" />
-                    </form>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button type="submit" form="AddForm" variant="primary">Save changes</Button>
+                    <Button onClick={handleSubmit(onSubmit)} form="UpdateForm" variant="primary">Update</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>
