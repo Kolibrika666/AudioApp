@@ -1,0 +1,82 @@
+﻿
+
+.userPage {
+    padding: 50px;
+    display: block;
+    box-sizing: border-box;
+
+    article {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h3 {
+        color: rgb(95, 79, 66);
+        border: none;
+    }
+
+    button {
+        background-color: rgb(248, 243, 241);
+        border: none;
+        color: rgb(179, 118, 110);
+    }
+
+    button:hover {
+        background-color: rgb(179, 118, 110);
+        color: rgb(248, 243, 241);
+        color: rgb(248, 243, 241);
+        border: none;
+    }
+
+}
+
+.search {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    align-items: center;
+    margin: 10px 0;
+    max-width: 500px;
+    border: 1px solid rgb(240, 242, 243);
+    border-radius: 5px;
+        input{
+            border: none;
+            margin: 0;
+         }
+
+        input:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #bdbdbd;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+        }
+
+        button {
+            background-image: url("https://cdn0.iconfinder.com/data/icons/art-designing-glyph/2048/1871_-_Magnifier-512.png");
+        }
+
+            button:hover {
+                background-color: transparent;
+                border: none;
+            }
+
+}
+
+.buttonBackgroundImage {
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 15px;
+    width: 15px;
+    margin: 10px;
+    }
+
+.editButton{
+    @extend .buttonBackgroundImage;
+    background-image: url("https://static.thenounproject.com/png/1416596-200.png");
+}
+
+.removeButton {
+    @extend .buttonBackgroundImage;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/6861/6861362.png");
+}

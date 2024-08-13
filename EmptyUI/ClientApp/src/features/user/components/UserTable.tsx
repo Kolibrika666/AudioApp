@@ -3,27 +3,21 @@ import { Table } from "react-bootstrap"
 import type { UserVm } from "../user.models";
 import { UserApi } from "../user.api";
 import { UserRow } from "./UserRow";
+import { useActionCreators } from "../../../store";
+import { userActions, userSelectors } from "../userSlice";
+import { useSelector } from "react-redux";
+import s from "./UserTable.module.scss"
 
 export const UserTable = () => {
 
-    const [users, setUsers] = useState<Array<UserVm>>([]);
-
-    const [isLoading, seIsLoading] = useState(false);
+    const { getUserList } = useActionCreators(userActions)
 
     useEffect(() => {
-        seIsLoading(true);
-
-        UserApi.getList()
-            .then(res => {
-                setUsers(res.data);
-            })
-            .finally(() => {
-                seIsLoading(false)
-            });
+        getUserList({ params: {} })
     }, []);
 
     return <>
-        <Table striped="columns" hover variant="dark">
+        <Table bordered hover className={s.userTable}>
             <thead>
                 <tr>
                     <th>id</th>
@@ -33,11 +27,7 @@ export const UserTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {
-                    isLoading
-                        ? '...Load'
-                        : <UserRow users={users} />
-                }
+               <UserRow/>
             </tbody>
         </Table>
     </>

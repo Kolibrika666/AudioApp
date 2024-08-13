@@ -1,10 +1,14 @@
 import type { Dispatch, SetStateAction } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import "./styles.css"
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { UserApi } from "../user.api";
-import type { UserCreateVm, UserVm } from "../user.models";
+import type { UserCreateVm } from "../user.models";
+import { useActionCreators } from "../../../store";
+import { userActions, userSelectors } from "../userSlice";
+import { useSelector } from "react-redux";
+import s from "./UserModal.module.scss"
 
 interface ICreateForm {
     name: string,
@@ -12,14 +16,15 @@ interface ICreateForm {
     age: number,
 }
 
-interface AddUserModalProps {
-    showState: boolean;
-    setShow: Dispatch<SetStateAction<boolean>>;
-}
+export const AddUserModal = () => {
 
+    const show = useSelector(userSelectors.showAddUserModal)
+    const { setShowAddUserModal, getUserList} = useActionCreators(userActions)
 
-export const AddUserModal = ({ setShow, showState }: AddUserModalProps) => {
-    const handleClose = () => setShow(false);
+    const handleClose = () => (
+        getUserList({ params: {} }).finally(() => setShowAddUserModal(false))
+    );
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm<ICreateForm>({
     });
 
@@ -32,12 +37,14 @@ export const AddUserModal = ({ setShow, showState }: AddUserModalProps) => {
         UserApi.createUser(createVm)
             .then(res => {
                 console.log(res)
-            }).finally(() => handleClose())
+            }).finally(() => (
+                handleClose()
+            ))
     };
 
     return <>
-        <Modal show={showState}
-            onHide={handleClose}>
+        <Modal show={show}
+            onHide={handleClose} className={s.modal}>
             <Modal.Dialog>
                 <Modal.Header closeButton>
                     <Modal.Title>Add user</Modal.Title>

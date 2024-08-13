@@ -1,6 +1,5 @@
 export interface IUserFilterVm {
     query?: string;
-    totalCount: number;
 }
 
 export interface UserVm {

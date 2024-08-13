@@ -1,39 +1,35 @@
 import { Button } from "react-bootstrap"
-import type { UserCreateVm, UserUpdateVm, UserVm } from "../user.models"
+import type {UserVm } from "../user.models"
 import { UserUpdateModal } from "./UserUpdateModal"
 import { UserApi } from "../user.api"
-import { useState } from "react"
+import { userActions, userSelectors } from "../userSlice"
+import { useActionCreators } from "../../../store"
+import { useSelector } from "react-redux"
+import s from "../UserPage.module.scss"
+export const UserRow = () => {
 
-interface UserRowProps {
-    users: Array<UserVm>
-}
+    const { setShowUpdateUserModal, setIsLoading, getUserList} = useActionCreators(userActions)
+    const show = useSelector(userSelectors.showUpdateUserModal)
+    const userList = useSelector(userSelectors.userList)
 
-export const UserRow = ({ users }: UserRowProps) => {
+    const openUpdateUserModal = () => setShowUpdateUserModal(true);
 
-    const [show, setShow] = useState(false);
-
-    const openUpdateUserModal = () => {
-        setShow(true)
-    }
-
-    const deleteUser = (id: number) => {
-        console.log(id)
+    const deleteUser = (id: number) => (
         UserApi.deleteUser(id)
-            .then(res => {
-                console.log(res)
-            })
-    }
+            .then(() => setIsLoading(true))
+            .finally(() => getUserList({ params: {} })
+            ))
     return <>
         {
-            users.map(x =>
+            userList.map(x =>
                 <tr key={x.id}>
                     <td>{x.id}</td>
                     <td>{x.name}</td>
                     <td>{x.age}</td>
                     <td>
-                        <Button onClick={openUpdateUserModal}>Edit</Button>
-                        <Button onClick={() => deleteUser(x.id)}>Remove</Button>
-                        {show? <UserUpdateModal showState={show} setShow={setShow} user={x} /> : null}
+                        <button onClick={openUpdateUserModal} className={s.editButton}></button>
+                        <button onClick={() => deleteUser(x.id)} className={s.removeButton}></button>
+                        {show? <UserUpdateModal user={x} /> : null}
                     </td>
                 </tr>
             )

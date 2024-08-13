@@ -1,10 +1,13 @@
-import type { Dispatch, SetStateAction } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./styles.css"
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { UserApi } from "../user.api";
 import type { UserUpdateVm, UserVm } from "../user.models";
+import { useSelector } from "react-redux";
+import { userActions, userSelectors } from "../userSlice";
+import { useActionCreators } from "../../../store";
+import s from "./UserModal.module.scss"
 
 interface IUpdateForm {
     name: string,
@@ -13,14 +16,16 @@ interface IUpdateForm {
 }
 
 interface UpdateUserModalProps {
-    showState: boolean;
-    setShow: Dispatch<SetStateAction<boolean>>;
     user: UserVm;
 }
 
 
-export const UserUpdateModal = ({ setShow, showState, user }: UpdateUserModalProps) => {
-    const handleClose = () => setShow(false);
+export const UserUpdateModal = ({ user }: UpdateUserModalProps) => {
+
+    const show = useSelector(userSelectors.showUpdateUserModal)
+    const { setShowUpdateUserModal, getUserList } = useActionCreators(userActions)
+    const handleClose = () => getUserList({ params: {} }).finally(() => setShowUpdateUserModal(false))
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm<IUpdateForm>({ reValidateMode: "onSubmit", defaultValues: {...user}});
 
     const onSubmit: SubmitHandler<IUpdateForm> = (data) => {
@@ -35,8 +40,8 @@ export const UserUpdateModal = ({ setShow, showState, user }: UpdateUserModalPro
             }).finally(() => handleClose())
     };
     return <>
-        <Modal show={showState}
-            onHide={handleClose}>
+        <Modal show={show}
+            onHide={handleClose} className={s.modal}>
             <Modal.Dialog>
                 <Modal.Header closeButton>
                     <Modal.Title>Add user</Modal.Title>

@@ -1,0 +1,1 @@
+export const twoStyle = (style1: string, style2: string) => style1 + ' ' + style2
