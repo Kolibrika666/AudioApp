@@ -1,6 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
 import { Button, Modal } from "react-bootstrap";
-import "./styles.css"
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { UserApi } from "../user.api";
