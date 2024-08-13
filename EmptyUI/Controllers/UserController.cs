@@ -20,11 +20,12 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
+
+
     [HttpGet]
-    public ActionResult<IEnumerable<UserVm>> GetList()
+    public ActionResult<IEnumerable<UserVm>> GetList([FromQuery]ListFilter filter)
     {
-       
-        return Ok(_userService.GetList().Select(_ => new UserVm
+        return Ok(_userService.GetList(filter).Select(_ => new UserVm
         {
             Id = _.Id,
             Name = _.Name,

@@ -21,3 +21,5 @@ public class UserUpdateBl
     public string LastName { get; set; }
     public int Age { get; set; }
 }
+
+public record ListFilter(string Name);

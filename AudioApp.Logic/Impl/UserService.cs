@@ -2,7 +2,7 @@
 using AudioApp.Logic.Contracts;
 using AudioApp.Logic.Extensions;
 using AudioApp.Logic.Models;
-using System.Reflection.Metadata;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioApp.Logic.Impl;
 
@@ -14,8 +14,15 @@ public class UserService : IUserService
         _dbContext = dbContext;
     }
 
-    public IEnumerable<UserBl> GetList()
-        => _dbContext.Users.Select(_ => _.toBl());
+    public IEnumerable<UserBl> GetList(ListFilter filter)
+    {
+        var query = _dbContext.Users.AsQueryable();
+
+        if (!string.IsNullOrEmpty(filter.Name))
+            query = query.Where(_ => EF.Functions.ILike(_.Name, $"%{filter.Name}%"));
+
+        return query.Select(_ => _.toBl());
+    }
 
     public UserBl Get(int id)
     {
@@ -41,7 +48,7 @@ public class UserService : IUserService
             _dbContext.SaveChanges();
             return entryUser.Entity.toBl();
         }
-        throw new FormatException(); 
+        throw new FormatException();
     }
 
     public UserBl Update(int id, UserUpdateBl bl)
