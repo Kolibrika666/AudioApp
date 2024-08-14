@@ -1,5 +1,5 @@
-import { twoStyle} from "./func";
+import { debounce} from "./func";
 
 export {
-    twoStyle,
+    debounce,
 }

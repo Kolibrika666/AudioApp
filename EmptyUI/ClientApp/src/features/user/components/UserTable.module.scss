@@ -3,8 +3,31 @@
 .userTable {
     --bs-table-hover-bg: rgb(248, 243, 241);
 
-     th {
+    th {
         background-color: rgb(241, 245, 248);
     }
 
+    .buttonBackgroundImage:hover {
+        background-color: transparent;
+        transform: scale(1.3);
+    }
+
+    .buttonBackgroundImage {
+        background-color: transparent;
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 15px;
+        width: 15px;
+        margin: 10px;
+    }
+
+    .editButton {
+        @extend .buttonBackgroundImage;
+        background-image: url("https://static.thenounproject.com/png/1416596-200.png");
+    }
+
+    .removeButton {
+        @extend .buttonBackgroundImage;
+        background-image: url("https://cdn-icons-png.flaticon.com/512/6861/6861362.png");
+    }
 }

@@ -1,1 +1,7 @@
-export const twoStyle = (style1: string, style2: string) => style1 + ' ' + style2
+export function debounce(func: any, ms: number) {
+    let timeout: any;
+    return function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, arguments), ms);
+    };
+}

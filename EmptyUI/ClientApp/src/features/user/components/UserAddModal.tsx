@@ -18,10 +18,12 @@ interface ICreateForm {
 export const AddUserModal = () => {
 
     const show = useSelector(userSelectors.showAddUserModal)
-    const { setShowAddUserModal, getUserList} = useActionCreators(userActions)
+    const { setShowAddUserModal, getUserList } = useActionCreators(userActions)
 
     const handleClose = () => (
-        getUserList({ params: {} }).finally(() => setShowAddUserModal(false))
+        getUserList({ params: {} }).finally(() => {
+            setShowAddUserModal(false)
+            })
     );
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<ICreateForm>({

@@ -1,5 +1,5 @@
 export interface IUserFilterVm {
-    query?: string;
+    name?: string;
 }
 
 export interface UserVm {

@@ -6,6 +6,7 @@ import { userActions, userSelectors } from "./userSlice"
 import { useSelector } from "react-redux"
 import { Load } from "../load"
 import s from "./UserPage.module.scss"
+import { UserSearch } from "./components/UserSearch"
 
 export const UserPage = () => {
 
@@ -19,10 +20,7 @@ export const UserPage = () => {
                 <h3>User list</h3>
                 <Button variant="secomdary" onClick={handleOpen} >+Add user</Button>
             </article>
-            <div className={s.search}>
-                <input placeholder="Search" />
-                <button className={s.buttonBackgroundImage}></button>
-            </div>
+            <UserSearch/>
             <AddUserModal />
             <UserTable />
             {(isloading) ? <Load /> : null}

@@ -1,5 +1,6 @@
 ﻿
 .spinner {
+    top: 0;
     position: absolute;
     display: grid;
     width: 100%;
