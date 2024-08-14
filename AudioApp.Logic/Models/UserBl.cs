@@ -22,4 +22,4 @@ public class UserUpdateBl
     public int Age { get; set; }
 }
 
-public record ListFilter(string Name);
+public record ListFilter(string Name, int? Age);
