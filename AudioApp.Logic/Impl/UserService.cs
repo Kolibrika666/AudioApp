@@ -21,6 +21,9 @@ public class UserService : IUserService
         if (!string.IsNullOrEmpty(filter.Name))
             query = query.Where(_ => EF.Functions.ILike(_.Name, $"%{filter.Name}%"));
 
+        if (filter.Age is not null)
+            query = query.Where(_ => _.Age == filter.Age);
+
         return query.Select(_ => _.toBl());
     }
 

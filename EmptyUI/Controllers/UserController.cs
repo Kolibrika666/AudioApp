@@ -1,11 +1,8 @@
 ﻿using AudioApp.Logic.Contracts;
 using AudioApp.Logic.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 namespace AudioApp.Api.Controllers;
 
@@ -23,7 +20,7 @@ public class UserController : ControllerBase
 
 
     [HttpGet]
-    public ActionResult<IEnumerable<UserVm>> GetList([FromQuery]ListFilter filter)
+    public ActionResult<IEnumerable<UserVm>> GetList([FromQuery] ListFilter filter)
     {
         return Ok(_userService.GetList(filter).Select(_ => new UserVm
         {
@@ -40,8 +37,6 @@ public class UserController : ControllerBase
         var res = _userService.Get(id);
         if (res == null)
             return NotFound();
-
-
 
         return Ok(new UserVm
         {
@@ -74,7 +69,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut]
-    public ActionResult<UserVm> Update([FromQuery]int userId, [FromBody]UserCreateVm vm)
+    public ActionResult<UserVm> Update([FromQuery] int userId, [FromBody] UserCreateVm vm)
     {
         var userBl = new UserUpdateBl
         {
