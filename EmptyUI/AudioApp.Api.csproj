@@ -35,7 +35,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="ClientApp\src\features\func\" />
 		<Folder Include="ClientApp\src\store\" />
 		<Folder Include="Extensions\" />
 		<Folder Include="wwwroot\" />

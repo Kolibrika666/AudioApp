@@ -1,11 +1,11 @@
 import { Button } from "react-bootstrap"
-import type {UserVm } from "../user.models"
-import { UserUpdateModal } from "./UserUpdateModal"
-import { UserApi } from "../user.api"
-import { userActions, userSelectors } from "../userSlice"
-import { useActionCreators } from "../../../store"
+import type {UserVm } from "../../user.models"
+import { UserApi } from "../../user.api"
+import { userActions, userSelectors } from "../../userSlice"
+import { useActionCreators } from "../../../../store"
 import { useSelector } from "react-redux"
 import s from "./UserTable.module.scss"
+import { UserUpdateModal } from "../modal/UserUpdateModal"
 export const UserRow = () => {
 
     const { setShowUpdateUserModal, setIsLoading, getUserList} = useActionCreators(userActions)

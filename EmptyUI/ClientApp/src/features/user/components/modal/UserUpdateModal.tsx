@@ -1,12 +1,12 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { UserApi } from "../user.api";
-import type { UserUpdateVm, UserVm } from "../user.models";
 import { useSelector } from "react-redux";
-import { userActions, userSelectors } from "../userSlice";
-import { useActionCreators } from "../../../store";
 import s from "./UserModal.module.scss"
+import type { UserUpdateVm, UserVm } from "../../user.models";
+import { UserApi } from "../../user.api";
+import { userActions, userSelectors } from "../../userSlice";
+import { useActionCreators } from "../../../../store";
 
 interface IUpdateForm {
     name: string,

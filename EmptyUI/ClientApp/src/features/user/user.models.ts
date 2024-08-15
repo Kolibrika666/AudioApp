@@ -1,5 +1,6 @@
 export interface IUserFilterVm {
     name?: string;
+    age?: number;
 }
 
 export interface UserVm {
