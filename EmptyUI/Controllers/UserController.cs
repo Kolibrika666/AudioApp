@@ -17,8 +17,6 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-
-
     [HttpGet]
     public ActionResult<IEnumerable<UserVm>> GetList([FromQuery] ListFilter filter)
     {

@@ -1,5 +1,4 @@
 ﻿using AudioApp.Logic.Models;
-using AudioApp.Model;
 
 namespace AudioApp.Logic.Contracts;
 
