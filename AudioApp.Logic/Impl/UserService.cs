@@ -24,7 +24,10 @@ public class UserService : IUserService
         if (filter.Age is not null)
             query = query.Where(_ => _.Age == filter.Age);
 
-        return query.Select(_ => _.toBl());
+        return query
+            .Skip(filter.Skip ?? 0)
+            .Take(filter.Take ?? 1000)
+            .Select(_ => _.toBl());
     }
 
     public UserBl Get(int id)
