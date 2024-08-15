@@ -2,10 +2,10 @@ import { useRef, type Dispatch, type SetStateAction, useState, useEffect } from 
 import { Button, Modal } from "react-bootstrap";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { UserApi } from "../user.api";
-import type { UserCreateVm } from "../user.models";
-import { useActionCreators } from "../../../store";
-import { userActions, userSelectors } from "../userSlice";
+import { UserApi } from "../../user.api";
+import type { UserCreateVm } from "../../user.models";
+import { useActionCreators } from "../../../../store";
+import { userActions, userSelectors } from "../../userSlice";
 import { useSelector } from "react-redux";
 import s from "./UserModal.module.scss"
 

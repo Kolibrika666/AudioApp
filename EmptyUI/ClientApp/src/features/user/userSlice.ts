@@ -8,6 +8,8 @@ interface IState {
     isLoading: boolean;
     isError: boolean;
     userList: UserVm[];
+    filterName?: string;
+    filterAge?: number;
 };
 
 const initialState: IState = {
@@ -51,8 +53,14 @@ export const userSlice = buildAppSlice({
                     state.isLoading = false;
                 }
             }
-
+            
         ),
+        setFilterName: creator.reducer((state, action: PayloadAction<string | undefined>) => {
+            state.filterName = action.payload;
+        }),
+        setFilterAge: creator.reducer((state, action: PayloadAction<number | undefined>) => {
+            state.filterAge = action.payload;
+        }) 
     }),
     selectors: {
         showAddUserModal: state => state.showAddUserModal,
@@ -60,6 +68,8 @@ export const userSlice = buildAppSlice({
         isLoading: state => state.isLoading,
         isError: state => state.isError,
         userList: state => state.userList,
+        filterName: state => state.filterName, 
+        filterAge: state => state.filterAge,
     }
 });
 

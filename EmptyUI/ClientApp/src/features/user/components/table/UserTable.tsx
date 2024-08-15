@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap"
-import type { UserVm } from "../user.models";
-import { UserApi } from "../user.api";
+import type { UserVm } from "../../user.models";
+import { UserApi } from "../../user.api";
 import { UserRow } from "./UserRow";
-import { useActionCreators } from "../../../store";
-import { userActions, userSelectors } from "../userSlice";
+import { useActionCreators } from "../../../../store";
+import { userActions, userSelectors } from "../../userSlice";
 import { useSelector } from "react-redux";
 import s from "./UserTable.module.scss"
 
