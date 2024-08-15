@@ -18,15 +18,21 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<UserVm>> GetList([FromQuery] ListFilter filter)
+    public ActionResult<ListUserVm> GetList([FromQuery] ListFilter filter)
     {
-        return Ok(_userService.GetList(filter).Select(_ => new UserVm
+        var list = _userService.GetList(filter);
+
+        return Ok(new ListUserVm
         {
-            Id = _.Id,
-            Name = _.Name,
-            Age = _.Age,
-            LastName = _.LastName
-        }));
+            TotalCount = list.TotalCount,
+            Users = list.Users.Select(_ => new UserVm
+            {
+                Id = _.Id,
+                Name = _.Name,
+                Age = _.Age,
+                LastName = _.LastName
+            })
+        });
     }
 
     [HttpGet]
