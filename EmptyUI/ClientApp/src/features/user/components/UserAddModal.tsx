@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useRef, type Dispatch, type SetStateAction, useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -12,19 +12,26 @@ import s from "./UserModal.module.scss"
 interface ICreateForm {
     name: string,
     lastName: string,
-    age: number,
+    age: number | string,
 }
 
 export const AddUserModal = () => {
 
     const show = useSelector(userSelectors.showAddUserModal)
-    const { setShowAddUserModal, getUserList} = useActionCreators(userActions)
+    const { setShowAddUserModal, getUserList } = useActionCreators(userActions)
 
     const handleClose = () => (
-        getUserList({ params: {} }).finally(() => setShowAddUserModal(false))
+        getUserList({ params: {} }).finally(() => {
+            setShowAddUserModal(false)
+            reset({
+                name: "",
+                lastName: "",
+                age: "" ,
+            })
+        })
     );
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<ICreateForm>({
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<ICreateForm>({
     });
 
     const onSubmit: SubmitHandler<ICreateForm> = (data) => {
@@ -38,7 +45,9 @@ export const AddUserModal = () => {
                 console.log(res)
             }).finally(() => (
                 handleClose()
+               
             ))
+        
     };
 
     return <>
@@ -53,7 +62,7 @@ export const AddUserModal = () => {
                     <form id="AddForm" onSubmit={handleSubmit(onSubmit)}>
                         <input {...register("name", { required: true })} placeholder="Name" />
                         <input {...register("lastName", { required: true })} placeholder="Last name" />
-                        <input {...register("age", { required: true })} placeholder="Age" />
+                        <input {...register("age", { required: true })} placeholder="Age"/>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

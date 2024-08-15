@@ -5,7 +5,7 @@ import { UserApi } from "../user.api"
 import { userActions, userSelectors } from "../userSlice"
 import { useActionCreators } from "../../../store"
 import { useSelector } from "react-redux"
-import s from "../UserPage.module.scss"
+import s from "./UserTable.module.scss"
 export const UserRow = () => {
 
     const { setShowUpdateUserModal, setIsLoading, getUserList} = useActionCreators(userActions)

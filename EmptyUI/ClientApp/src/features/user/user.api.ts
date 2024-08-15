@@ -10,7 +10,7 @@ const endpoints = {
 
 export class UserApi {
 
-    static getList(params?: IUserFilterVm,) {
+    static getList(params?: IUserFilterVm) {
         return httpClient.get<Array<UserVm>>(endpoints.GET_LIST, { params });
     };
 
