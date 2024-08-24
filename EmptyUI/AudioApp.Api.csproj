@@ -15,8 +15,15 @@
 
 	<ItemGroup>
 		<!-- Don't publish the SPA source files, but do show them in the project files list -->
+		<Compile Remove="Extensions\**" />
 		<Content Remove="$(SpaRoot)**" />
+		<Content Remove="Extensions\**" />
 		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="Extensions\**" />
+	  <None Remove="Extensions\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -37,7 +44,6 @@
 	<ItemGroup>
 		<Folder Include="ClientApp\src\features\" />
 		<Folder Include="ClientApp\src\store\" />
-		<Folder Include="Extensions\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
 

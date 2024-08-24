@@ -18,37 +18,21 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<ListUserVm> GetList([FromQuery] ListFilter filter)
+    public ActionResult<ListUserBl> GetList([FromQuery] ListFilter filter)
     {
         var list = _userService.GetList(filter);
 
-        return Ok(new ListUserVm
-        {
-            TotalCount = list.TotalCount,
-            Users = list.Users.Select(_ => new UserVm
-            {
-                Id = _.Id,
-                Name = _.Name,
-                Age = _.Age,
-                LastName = _.LastName
-            })
-        });
+        return Ok(list);
     }
 
     [HttpGet]
-    public ActionResult<UserVm> Get(int id)
+    public ActionResult<UserBl> Get(int id)
     {
         var res = _userService.Get(id);
         if (res == null)
             return NotFound();
 
-        return Ok(new UserVm
-        {
-            Id = res.Id,
-            Name = res.Name,
-            Age = res.Age,
-            LastName = res.LastName
-        });
+        return Ok(res);
     }
 
     [HttpDelete]
@@ -60,28 +44,16 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<UserVm> Create(UserCreateVm vm)
+    public ActionResult<UserBl> Create(UserCreateBl bl)
     {
-        var userBl = new UserCreateBl
-        {
-            Age = vm.Age,
-            Name = vm.Name,
-            LastName = vm.LastName
-        };
-        _userService.Create(userBl);
-        return Ok(userBl);
+        _userService.Create(bl);
+        return Ok(bl);
     }
 
     [HttpPut]
-    public ActionResult<UserVm> Update([FromQuery] int userId, [FromBody] UserCreateVm vm)
+    public ActionResult<UserBl> Update([FromBody] UserUpdateBl bl)
     {
-        var userBl = new UserUpdateBl
-        {
-            Age = vm.Age,
-            Name = vm.Name,
-            LastName = vm.LastName
-        };
-        _userService.Update(userId, userBl);
+        _userService.Update(bl);
         return Ok(userBl);
     }
 }
