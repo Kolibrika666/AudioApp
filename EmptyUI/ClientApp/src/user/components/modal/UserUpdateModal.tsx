@@ -1,31 +1,30 @@
-import { Button, Form, Modal } from "react-bootstrap";
-import type { SubmitHandler } from "react-hook-form";
-import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import s from "./UserModal.module.scss"
 import type { UserUpdateVm, UserVm } from "../../user.models";
-import { UserApi } from "../../user.api";
+import { useActionCreators } from "../../../store";
 import { userActions, userSelectors } from "../../userSlice";
-import { useActionCreators } from "../../../../store";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { UserApi } from "../../user.api";
+import { Button, Form, Modal } from "react-bootstrap";
+
 
 interface IUpdateForm {
     name: string,
     lastName: string,
     age: number,
 }
-
 interface UpdateUserModalProps {
     user: UserVm;
 }
 
-
 export const UserUpdateModal = ({ user }: UpdateUserModalProps) => {
 
     const show = useSelector(userSelectors.showUpdateUserModal)
-    const { setShowUpdateUserModal, getUserList } = useActionCreators(userActions)
-    const handleClose = () => getUserList({ params: {} }).finally(() => setShowUpdateUserModal(false))
+    const actions = useActionCreators(userActions)
+    const handleClose = () => actions.getUserList({ params: {} }).finally(() => {
+        actions.setShowUpdateUserModal(false);
+    })
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<IUpdateForm>({ reValidateMode: "onSubmit", defaultValues: {...user}});
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<IUpdateForm>({ reValidateMode: "onSubmit", defaultValues: { ...user } });
 
     const onSubmit: SubmitHandler<IUpdateForm> = (data) => {
         const updateVm: UserUpdateVm = {

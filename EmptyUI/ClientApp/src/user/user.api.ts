@@ -1,5 +1,6 @@
-import { httpClient } from "../../httpClient";
-import type { IUserFilterVm, UserCreateVm, UserUpdateVm, UserVm } from "./user.models";
+
+import { httpClient } from "../httpClient";
+import type { IUserFilterVm, ListUserVm, UserCreateVm, UserUpdateVm, UserVm } from "./user.models";
 
 const endpoints = {
     GET_LIST: "/User/GetList",
@@ -7,11 +8,10 @@ const endpoints = {
     DELETE_USER: "/User/Delete",
     UPDATE_USER: "/User/Update"
 }
-
 export class UserApi {
 
     static getList(params?: IUserFilterVm) {
-        return httpClient.get<Array<UserVm>>(endpoints.GET_LIST, { params });
+        return httpClient.get<ListUserVm>(endpoints.GET_LIST, { params });
     };
 
     static createUser(data?: UserCreateVm,) {

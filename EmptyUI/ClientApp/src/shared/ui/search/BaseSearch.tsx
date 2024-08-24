@@ -1,7 +1,7 @@
 import {  useEffect, useState } from "react";
-import s from "./UserSearch.module.scss"
 import { useDebounce } from "../../hooks";
 import { FloatingLabel, Form } from "react-bootstrap";
+
 
 interface SearchProps<T> {
     onChange: (query?: string) => void;

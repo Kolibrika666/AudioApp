@@ -8,8 +8,11 @@ interface IState {
     isLoading: boolean;
     isError: boolean;
     userList: UserVm[];
+    totalCount: number;
     filterName?: string;
     filterAge?: number;
+    skipPagination: number;
+    takePagination: number;
 };
 
 const initialState: IState = {
@@ -18,6 +21,9 @@ const initialState: IState = {
     isLoading: false,
     isError: false,
     userList: [],
+    totalCount: 0,
+    skipPagination: 1,
+    takePagination: 10,
 };
 
 export const buildAppSlice = buildCreateSlice({
@@ -49,7 +55,8 @@ export const userSlice = buildAppSlice({
                     state.isError = true;
                 },
                 fulfilled: (state, { payload: userList }) => {
-                    state.userList = userList;
+                    state.userList = userList.users;
+                    state.totalCount = userList.totalCount
                     state.isLoading = false;
                 }
             }
@@ -60,7 +67,14 @@ export const userSlice = buildAppSlice({
         }),
         setFilterAge: creator.reducer((state, action: PayloadAction<number | undefined>) => {
             state.filterAge = action.payload;
-        }) 
+        }),
+        setSkipPagination: creator.reducer((state, action: PayloadAction<number>) => {
+            state.skipPagination = action.payload;
+        }),
+        setTakePagination: creator.reducer((state, action: PayloadAction<number>) => {
+            state.takePagination = action.payload;
+        }),
+
     }),
     selectors: {
         showAddUserModal: state => state.showAddUserModal,
@@ -70,6 +84,9 @@ export const userSlice = buildAppSlice({
         userList: state => state.userList,
         filterName: state => state.filterName, 
         filterAge: state => state.filterAge,
+        skipPagination: state => state.skipPagination,
+        takePagination: state => state.takePagination,
+        totalCount: state => state.totalCount,
     }
 });
 

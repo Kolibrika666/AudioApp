@@ -1,5 +1,6 @@
 import { asyncThunkCreator, buildCreateSlice, configureStore } from "@reduxjs/toolkit"
-import { userReducer} from "../features/user/userSlice";
+import { userReducer } from "../user/userSlice";
+
 
 
 

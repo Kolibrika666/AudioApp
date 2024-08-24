@@ -1,6 +1,14 @@
+export interface ListUserVm {
+    users: UserVm[];
+    totalCount: number;
+}
+
+
 export interface IUserFilterVm {
     name?: string;
     age?: number;
+    skip?: number;
+    take?: number;
 }
 
 export interface UserVm {
