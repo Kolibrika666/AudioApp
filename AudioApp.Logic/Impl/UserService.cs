@@ -24,6 +24,9 @@ public class UserService : IUserService
         if (filter.Age is not null)
             query = query.Where(_ => _.Age == filter.Age);
 
+        if (filter.Role.HasValue)
+            query = query.Where(r => ((byte)r.Role & (byte)filter.Role) != 0);
+
         int total = query.Count();
 
         return new ListUserBl
@@ -54,7 +57,8 @@ public class UserService : IUserService
             {
                 Age = bl.Age,
                 Name = bl.Name,
-                LastName = bl.LastName
+                LastName = bl.LastName,
+                Role = bl.Role
             };
             var entryUser = _dbContext.Users.Add(newUser);
             _dbContext.SaveChanges();
@@ -63,16 +67,17 @@ public class UserService : IUserService
         throw new FormatException();
     }
 
-    public UserBl Update(int id, UserUpdateBl bl)
+    public UserBl Update( UserUpdateBl bl)
     {
         if (bl.Age != 0 && !string.IsNullOrEmpty(bl.Name.Trim()) && !string.IsNullOrEmpty(bl.LastName.Trim()))
         {
-            var result = _dbContext.Users.Find(id);
+            var result = _dbContext.Users.Find(bl.Id);
             if (result != null)
             {
                 result.Age = bl.Age;
                 result.Name = bl.Name;
                 result.LastName = bl.LastName;
+                result.Role = bl.Role;
 
                 _dbContext.SaveChanges();
                 return result.toBl();
