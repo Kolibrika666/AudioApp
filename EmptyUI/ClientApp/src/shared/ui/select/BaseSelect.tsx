@@ -1,5 +1,6 @@
 import { FloatingLabel} from "react-bootstrap";
 import Select, { type SingleValue } from 'react-select'
+import s from "./BaseSelect.module.scss"
 
 export interface FormOption<T> {
    readonly value: T;
@@ -16,7 +17,8 @@ export function BaseSelect<T>({ onChange, value, label = 'select', options }: Se
     return (
         <>
             <FloatingLabel label={label}>
-            <Select  
+                <Select
+                    className={s.select}
                     options={options}
                     onChange={(onChange as (single: SingleValue<FormOption<T>>) => void)}
                     value={value} 

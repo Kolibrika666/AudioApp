@@ -19,16 +19,15 @@ export const AddUserModal = () => {
     const show = useSelector(userSelectors.showAddUserModal)
     const actions = useActionCreators(userActions)
 
-    const handleClose = () => (
-        actions.getUserList({ params: {} }).finally(() => {
-            actions.setShowAddUserModal(false)
-            reset({
-                name: "",
-                lastName: "",
-                age: "" ,
-            })
-        })
-    );
+    const handleClose = () => { 
+        reset({
+            name: "",
+            lastName: "",
+            age: "",
+        });
+        actions.setShange(1);
+        actions.setShowAddUserModal(false);
+};
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<ICreateForm>({
     });
@@ -44,7 +43,6 @@ export const AddUserModal = () => {
                 console.log(res)
             }).finally(() => (
                 handleClose()
-               
             ))
         
     };
@@ -66,7 +64,7 @@ export const AddUserModal = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button type="submit" form="AddForm" variant="primary">Save changes</Button>
+                    <Button type="submit" form="AddForm" variant="danger">Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>

@@ -1,0 +1,20 @@
+.select {
+    height: 100%;
+    width: max-content;
+    display: grid;
+    
+
+    .css-13cymwt-control {
+        width: 500px;
+    }
+        
+        .css-13cymwt-control:focus {
+        border: 2px solid rgb(179, 118, 110);
+        box-shadow: 1px 1px 3px rgb(179, 118, 110);
+    }
+
+    .css-13cymwt-control:after {
+        border: 2px solid rgb(179, 118, 110);
+        box-shadow: 1px 1px 3px rgb(179, 118, 110);
+    }
+}

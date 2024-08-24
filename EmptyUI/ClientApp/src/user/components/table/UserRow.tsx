@@ -6,20 +6,24 @@ import { useSelector } from "react-redux"
 import s from "./UserTable.module.scss"
 import { UserUpdateModal } from "../modal/UserUpdateModal"
 import { useActionCreators } from "../../../store"
-export const UserRow = () => {
 
-    const { setShowUpdateUserModal, setIsLoading, getUserList} = useActionCreators(userActions)
+export const UserRow = () => {
+    const actions = useActionCreators(userActions)
     const show = useSelector(userSelectors.showUpdateUserModal)
     const userList = useSelector(userSelectors.userList)
 
-    const openUpdateUserModal = () => setShowUpdateUserModal(true);
+    const openUpdateUserModal = (x: UserVm) => {
+        actions.setUser(x)
+        actions.setShowUpdateUserModal(true);
+    }
+    const deleteUser = (id: number) => {
 
-    const deleteUser = (id: number) => (
         UserApi.deleteUser(id)
-            .then(() => setIsLoading(true))
-            .finally(() => getUserList({ params: {} })
-            ))
-    return <>
+            .then(() => {
+                actions.setIsLoading(true);
+            }).finally(() => actions.setShange(1))
+    };
+    return (<>
         {
             userList.map(x =>
                 <tr key={x.id}>
@@ -27,12 +31,13 @@ export const UserRow = () => {
                     <td>{x.name}</td>
                     <td>{x.age}</td>
                     <td>
-                        <button onClick={openUpdateUserModal} className={s.editButton}></button>
+                        <button onClick={() => openUpdateUserModal(x)} className={s.editButton}></button>
                         <button onClick={() => deleteUser(x.id)} className={s.removeButton}></button>
-                        {show? <UserUpdateModal user={x} /> : null}
+                        {show? <UserUpdateModal/> : null}
                     </td>
                 </tr>
             )
         }
     </>
+    )
 }

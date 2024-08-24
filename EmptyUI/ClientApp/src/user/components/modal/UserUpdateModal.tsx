@@ -5,6 +5,7 @@ import { userActions, userSelectors } from "../../userSlice";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { UserApi } from "../../user.api";
 import { Button, Form, Modal } from "react-bootstrap";
+import s from "./UserModal.module.scss"
 
 
 interface IUpdateForm {
@@ -12,19 +13,18 @@ interface IUpdateForm {
     lastName: string,
     age: number,
 }
-interface UpdateUserModalProps {
-    user: UserVm;
-}
 
-export const UserUpdateModal = ({ user }: UpdateUserModalProps) => {
+export const UserUpdateModal = () => {
 
     const show = useSelector(userSelectors.showUpdateUserModal)
+    const user = useSelector(userSelectors.user)
     const actions = useActionCreators(userActions)
-    const handleClose = () => actions.getUserList({ params: {} }).finally(() => {
+    const handleClose = () => {
+        actions.setShange(1);
         actions.setShowUpdateUserModal(false);
-    })
+    };
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<IUpdateForm>({ reValidateMode: "onSubmit", defaultValues: { ...user } });
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<IUpdateForm>({ reValidateMode: "onSubmit", defaultValues: { ...user } });
 
     const onSubmit: SubmitHandler<IUpdateForm> = (data) => {
         const updateVm: UserUpdateVm = {
@@ -54,7 +54,7 @@ export const UserUpdateModal = ({ user }: UpdateUserModalProps) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button onClick={handleSubmit(onSubmit)} form="UpdateForm" variant="primary">Update</Button>
+                    <Button onClick={handleSubmit(onSubmit)} form="UpdateForm" variant="danger">Update</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>
