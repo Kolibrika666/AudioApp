@@ -1,5 +1,5 @@
 import { asyncThunkCreator, buildCreateSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { IUserFilterVm, UserVm } from "./user.models";
+import type { IUserFilterVm, UserRoleEnum, UserVm } from "./user.models";
 import { UserApi } from "./user.api";
 
 interface IState {
@@ -12,6 +12,7 @@ interface IState {
     totalCount: number;
     filterName?: string;
     filterAge?: number;
+    filterRole?: UserRoleEnum;
     skipPagination: number;
     takePagination: number;
     change: number;
@@ -23,9 +24,9 @@ const initialState: IState = {
     isLoading: false,
     isError: false,
     userList: [],
-    user: { age: 0, lastName: "", name: "", id: 0 },
+    user: { age: 0, lastName: "", name: "", id: 0, role: 0 },
     totalCount: 0,
-    skipPagination: 1,
+    skipPagination: 0,
     takePagination: 10,
     change: 0,
 };
@@ -75,6 +76,9 @@ export const userSlice = buildAppSlice({
         setFilterAge: creator.reducer((state, action: PayloadAction<number | undefined>) => {
             state.filterAge = action.payload;
         }),
+        setFilterRole: creator.reducer((state, action: PayloadAction <UserRoleEnum | undefined>) => {
+            state.filterRole = action.payload;
+        }),
         setSkipPagination: creator.reducer((state, action: PayloadAction<number>) => {
             state.skipPagination = action.payload;
         }),
@@ -95,6 +99,7 @@ export const userSlice = buildAppSlice({
         user: state => state.user,
         filterName: state => state.filterName, 
         filterAge: state => state.filterAge,
+        filterRole: state => state.filterRole,
         skipPagination: state => state.skipPagination,
         takePagination: state => state.takePagination,
         totalCount: state => state.totalCount,

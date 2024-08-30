@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap"
-import type {UserVm } from "../../user.models"
+import type {UserRoleEnum, UserVm } from "../../user.models"
 import { UserApi } from "../../user.api"
 import { userActions, userSelectors } from "../../userSlice"
 import { useSelector } from "react-redux"
@@ -23,6 +23,19 @@ export const UserRow = () => {
                 actions.setIsLoading(true);
             }).finally(() => actions.setShange(1))
     };
+
+    const userRoles = (role: UserRoleEnum) => {
+        let arr: string[] = [];
+        if (role != 0) {
+            if (role & 1) arr.push('tester')
+            if (role & 2) arr.push('dev')
+            if (role & 4) arr.push('manager')
+            if (role & 8) arr.push('castumer')
+        } else {
+            arr.push('none'); 
+        }
+        return arr
+    }
     return (<>
         {
             userList.map(x =>
@@ -30,6 +43,9 @@ export const UserRow = () => {
                     <td>{x.id}</td>
                     <td>{x.name}</td>
                     <td>{x.age}</td>
+                    <td>{userRoles(x.role).map((e) => 
+                        <span key={e}>{e}</span>
+                    )}</td>
                     <td>
                         <button onClick={() => openUpdateUserModal(x)} className={s.editButton}></button>
                         <button onClick={() => deleteUser(x.id)} className={s.removeButton}></button>

@@ -1,4 +1,4 @@
-import { useDebounce, numberArray } from "./hooks";
+import { useDebounce, numberArray} from "./hooks";
 
 export {
     useDebounce,

@@ -1,5 +1,14 @@
-﻿.pagination {
+﻿
+.pagination {
     display: flex;
     gap: 10px;
     height: 35px;
+
+    a {
+        color: red;
+    }
+
+    .active {
+        background-color: red;
+    }
 }

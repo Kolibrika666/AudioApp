@@ -14,7 +14,8 @@ namespace AudioApp.Logic.Extensions
                 Id = user.Id,
                 Name = user.Name,
                 Age = user.Age,
-                LastName = user.LastName
+                LastName = user.LastName,
+                Role = user.Role, 
             };
         }
 

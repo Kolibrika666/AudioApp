@@ -1,6 +1,6 @@
-import {  useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { numberArray, useDebounce } from "../../hooks";
-import {  Pagination } from "react-bootstrap";
+import { Pagination } from "react-bootstrap";
 import { BaseSelect } from "../select/BaseSelect";
 import s from "./BasePagination.module.scss"
 
@@ -9,7 +9,7 @@ type FormOption<T> = {
     value: T;
 }
 
-const options: FormOption<number>[] = [
+const options: FormOption<PageSize>[] = [
     {
         label: '10',
         value: 10,
@@ -26,20 +26,20 @@ const options: FormOption<number>[] = [
 
 type PageSize = 10 | 20 | 30;
 
-interface PaginationProps{
+interface PaginationProps {
     pageSize?: PageSize;
     totalCount: number;
     onChange: (take: number, skip: number) => void;
 }
-export function BasePagination({ onChange, totalCount, pageSize = 10} : PaginationProps) {
+export function BasePagination({ onChange, totalCount, pageSize = 10 }: PaginationProps) {
 
     const [take, setTake] = useState<number>(pageSize)
     const [skip, setSkip] = useState(0)
 
     const pagesCount: number = Math.ceil(totalCount / take);
     const pages = numberArray(pagesCount)
-   
-    const onSelectChange = (query: FormOption<number>) => {
+
+    const onSelectChange = (query: FormOption<PageSize>) => {
         setSkip(0)
         totalCount < query.value ? setTake(totalCount) : setTake(query.value)
     }
@@ -51,7 +51,7 @@ export function BasePagination({ onChange, totalCount, pageSize = 10} : Paginati
     }, [skip, totalCount, take])
 
     const onPageClick = (e: number) => {
-        setSkip(take*(e-1))
+        setSkip(take * (e - 1))
     }
 
     const onPrevPagination = () => {
@@ -68,15 +68,21 @@ export function BasePagination({ onChange, totalCount, pageSize = 10} : Paginati
         onChange(skip, take)
     }, [skip, take])
 
-    return(
+    return (
         <>
             <p>{description}</p>
             < div className={s.pagination}>
-            <BaseSelect options={options} onChange={onSelectChange} label="" />
-            <Pagination>
-                <Pagination.Prev onClick={onPrevPagination} />
-                {pages.map((e) => <Pagination.Item key={e} onClick={() => onPageClick(e)}>{e}</Pagination.Item>)}
-                <Pagination.Next onClick={onNextPagination} />
+                <BaseSelect options={options} onChange={onSelectChange} label="" isClearable={false} menuPlacement='top' />
+                <Pagination>
+                    <Pagination.Prev onClick={onPrevPagination} />
+                    {pages.map((e) =>
+                        < Pagination.Item
+                            active={(skip === (e - 1) * take)}
+                            key={e}
+                            onClick={() => onPageClick(e)
+                            }>{e}</Pagination.Item>)
+                    }
+                    <Pagination.Next onClick={onNextPagination} />
                 </Pagination>
             </div>
         </>

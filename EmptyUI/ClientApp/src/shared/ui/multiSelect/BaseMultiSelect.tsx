@@ -1,32 +1,31 @@
-import { FloatingLabel} from "react-bootstrap";
-import Select, { type MenuPlacement, type SingleValue } from 'react-select'
+import { FloatingLabel } from "react-bootstrap";
+import Select, { type MultiValue } from 'react-select'
 import s from "./BaseSelect.module.scss"
 
-export interface FormOption<T> {
-   readonly value: T;
-   readonly label: string;
+export interface FormMultiOption<T> {
+    readonly value: T;
+    readonly label: string;
 }
 interface SelectProps<T> {
-    onChange: (option: FormOption<T>) => void;
-    value?: FormOption<T> | null;
-        label?: string;
-    options: FormOption<T>[];
+    onChange: (option: FormMultiOption<T>[]) => void;
+    value?: FormMultiOption<T> | null;
+    label?: string;
+    options: FormMultiOption<T>[];
     isClearable?: boolean;
-    menuPlacement?: MenuPlacement;
+    onBlur?: () => void;
 }
-
-
-export function BaseSelect<T>({ onChange, value, label = 'select', options, isClearable = true, menuPlacement = 'auto'}: SelectProps<T>) {
+export function BaseMultiSelect<T>({ onChange, value, label = 'select', options, isClearable = true }: SelectProps<T>) {
 
     return (
         <>
             <FloatingLabel label={label}>
                 <Select
+                    isMulti
                     options={options}
-                    onChange={(onChange as (single: SingleValue<FormOption<T>>) => void)}
+                    onChange={(onChange as (multi: MultiValue<FormMultiOption<T>>) => void)}
                     value={value}
                     isClearable={isClearable}
-                    menuPlacement={menuPlacement}
+                    closeMenuOnSelect={true}
                     theme={(theme) => ({
                         ...theme,
                         border: 0,
@@ -37,14 +36,14 @@ export function BaseSelect<T>({ onChange, value, label = 'select', options, isCl
                         },
                     })}
                     classNames={{
-                        control:(state) =>
+                        control: (state) =>
                             state.isFocused ? s.selectIsFocused : s.select,
                         container: (state) =>
                             state.isFocused ? s.containerIsFocused : s.container,
                     }}
-            />
-        </FloatingLabel>
+                />
+            </FloatingLabel>
         </>
     )
-} 
+}
 

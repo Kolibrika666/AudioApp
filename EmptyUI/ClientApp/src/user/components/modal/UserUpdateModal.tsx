@@ -42,10 +42,10 @@ export const UserUpdateModal = () => {
             onHide={handleClose} className={s.modal}>
             <Modal.Dialog>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add user</Modal.Title>
+                    <Modal.Title>Update user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Input name, last name and age</p>
+                    <p>Update name, last name and age</p>
                     <Form id="UpdateForm">
                         <input {...register("name", { required: true })} placeholder="Name" />
                         <input {...register("lastName", { required: true })} placeholder="Last name" />

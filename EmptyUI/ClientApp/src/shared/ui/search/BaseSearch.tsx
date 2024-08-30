@@ -25,8 +25,17 @@ export function BaseSearch<T>({onChange, value, debounceTimeOut = 500,  label = 
     }
 
     return (
-        <FloatingLabel label={label} className={s.label} >
-            <Form.Control className={s.search} type="search" onChange={onHandleChange} />
-        </FloatingLabel>
+        <div className={s.search}>
+        <Form.Floating className="mb-2">
+        <Form.Control
+          id="floatingInputCustom"
+          type="search"
+          placeholder="name"
+          onChange={onHandleChange}
+
+        />
+        <label htmlFor="floatingInputCustom">Search</label>
+            </Form.Floating>
+        </div>
     )
 } 

@@ -53,7 +53,7 @@ public class UserController : ControllerBase
     [HttpPut]
     public ActionResult<UserBl> Update([FromBody] UserUpdateBl bl)
     {
-        _userService.Update(bl);
-        return Ok(userBl);
+        var result = _userService.Update(bl);
+        return Ok(result);
     }
 }
