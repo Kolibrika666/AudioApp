@@ -24,7 +24,7 @@ const initialState: IState = {
     isLoading: false,
     isError: false,
     userList: [],
-    user: { age: 0, lastName: "", name: "", id: 0, role: 0 },
+    user: { age: 0, lastName: "", name: "", id: 0, role: undefined },
     totalCount: 0,
     skipPagination: 0,
     takePagination: 10,

@@ -39,10 +39,12 @@ export const UserFilters = () => {
             const values = query?.reduce(
                 (accumulator: UserRoleEnum, currentValue) => accumulator | currentValue.value,
                 0,);
-        if (values == 0) actions.setFilterRole(undefined)
-        else {
-            actions.setFilterRole(values)
-        };
+        console.log(query)
+        actions.setFilterRole(values)
+        /*if (values == 0) actions.setFilterRole(undefined)*/
+        //else {
+        //    actions.setFilterRole(values)
+        //};
 
 
     }

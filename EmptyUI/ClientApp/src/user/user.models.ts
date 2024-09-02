@@ -23,14 +23,14 @@ export interface UserVm {
     name: string;
     lastName: string;
     age: number;
-    role: UserRoleEnum;
+    role?: UserRoleEnum;
 }
 
 export interface UserCreateVm {
     name: string;
     lastName: string;
     age: number;
-    role: UserRoleEnum;
+    role?: UserRoleEnum;
 }
 
 export interface UserUpdateVm {
@@ -38,7 +38,7 @@ export interface UserUpdateVm {
     name: string;
     lastName: string;
     age: number;
-    role: UserRoleEnum;
+    role?: UserRoleEnum;
 }
 
 export interface ICheckBox<T> {

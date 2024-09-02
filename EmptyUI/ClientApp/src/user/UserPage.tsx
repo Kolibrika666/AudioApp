@@ -1,14 +1,12 @@
-import { Button } from "react-bootstrap"
 import { userActions, userSelectors } from "./userSlice"
 import { useSelector } from "react-redux"
 import s from "./UserPage.module.scss"
 import { AddUserModal } from "./components/modal/UserAddModal"
 import { UserTable } from "./components/table/UserTable"
 import { UserFilters } from "./components/filter/UserFilters"
-import { useEffect } from "react"
 import { useActionCreators } from "../store"
 import { BasePagination, Load } from "../shared/ui"
-
+import { Button } from "react-bootstrap"
 
 export const UserPage = () => {
 
@@ -27,13 +25,13 @@ export const UserPage = () => {
         <div className={s.userPage}>
             <article>
                 <h3>User list</h3>
-                <Button variant="secomdary" onClick={handleOpen} >+Add user</Button>
+                <Button onClick={handleOpen} variant='primary'>+Add user</Button>
             </article>
             <UserFilters />
             <AddUserModal />
             <UserTable />
             <BasePagination totalCount={totalCount} onChange={onPaginationChange} pageSize={10} />
-            {(isloading) ? <Load/> : null}
+            {(isloading) ? <Load /> : null}
         </div>
     )
 } 

@@ -1,11 +1,11 @@
-import { Button } from "react-bootstrap"
 import type {UserRoleEnum, UserVm } from "../../user.models"
 import { UserApi } from "../../user.api"
 import { userActions, userSelectors } from "../../userSlice"
 import { useSelector } from "react-redux"
 import s from "./UserTable.module.scss"
-import { UserUpdateModal } from "../modal/UserUpdateModal"
+import { UpdateUserModal} from "../modal/UserUpdateModal"
 import { useActionCreators } from "../../../store"
+import { Button } from "react-bootstrap"
 
 export const UserRow = () => {
     const actions = useActionCreators(userActions)
@@ -47,9 +47,9 @@ export const UserRow = () => {
                         <span key={e}>{e}</span>
                     )}</td>
                     <td>
-                        <button onClick={() => openUpdateUserModal(x)} className={s.editButton}></button>
-                        <button onClick={() => deleteUser(x.id)} className={s.removeButton}></button>
-                        {show? <UserUpdateModal/> : null}
+                        <Button onClick={() => openUpdateUserModal(x)} className={s.editButton} ></Button>
+                        <Button onClick={() => deleteUser(x.id)} className={s.removeButton}></Button>
+                        {show? <UpdateUserModal/> : null}
                     </td>
                 </tr>
             )

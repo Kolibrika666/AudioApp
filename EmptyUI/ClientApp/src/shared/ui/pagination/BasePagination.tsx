@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { numberArray, useDebounce } from "../../hooks";
-import { Pagination } from "react-bootstrap";
 import { BaseSelect } from "../select/BaseSelect";
 import s from "./BasePagination.module.scss"
+import "../../../App.module.scss"
+import { Button, Pagination } from "react-bootstrap";
 
 type FormOption<T> = {
     label: string;
@@ -76,7 +77,7 @@ export function BasePagination({ onChange, totalCount, pageSize = 10 }: Paginati
                 <Pagination>
                     <Pagination.Prev onClick={onPrevPagination} />
                     {pages.map((e) =>
-                        < Pagination.Item
+                        < Pagination.Item 
                             active={(skip === (e - 1) * take)}
                             key={e}
                             onClick={() => onPageClick(e)
@@ -84,6 +85,7 @@ export function BasePagination({ onChange, totalCount, pageSize = 10 }: Paginati
                     }
                     <Pagination.Next onClick={onNextPagination} />
                 </Pagination>
+                <Button variant="primary">1</Button>
             </div>
         </>
     )

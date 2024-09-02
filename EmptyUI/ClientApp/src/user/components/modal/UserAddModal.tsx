@@ -1,4 +1,4 @@
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import type { SubmitHandler } from "react-hook-form";
 import { useFieldArray, useForm } from "react-hook-form";
 import { UserApi } from "../../user.api";
@@ -25,7 +25,7 @@ export const AddUserModal = () => {
             name: "",
             lastName: "",
             age: "",
-            roles: [],
+            roles: fields,
         });
         actions.setShange(1);
         actions.setShowAddUserModal(false);
@@ -65,28 +65,35 @@ export const AddUserModal = () => {
 
     return <>
         <Modal show={show}
-            onHide={handleClose} className={s.modal}>
+            onHide={handleClose}>
             <Modal.Dialog>
                 <Modal.Header closeButton>
                     <Modal.Title>Add user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p>Input name, last name and age</p>
-                    <form id="AddForm" onSubmit={handleSubmit(onSubmit)}>
-                        <input {...register("name", { required: true })} placeholder="Name" />
-                        <input {...register("lastName", { required: true })} placeholder="Last name" />
-                        <input {...register("age", { required: true })} placeholder="Age" />
-
-                        {fields.map((field, index) => (
-                            <>
-                                <label>{field.label}</label>
-                                <input type="checkbox"
+                    <Form id="AddForm" onSubmit={handleSubmit(onSubmit)}>
+                        <div className={s.inputGroup}>
+                            <input {...register("name", { required: true })} placeholder="Name" />
+                            <input {...register("lastName", { required: true })} placeholder="Last name" />
+                            <input {...register("age", { required: true })} placeholder="Age" />
+                        </div>
+                        <p>Check role</p>
+                        <div
+                            className={s.formGroup}
+                        >
+                    
+                            {fields.map((field, index) => (
+                                <article key={field.id}>
+                                    <Form.Label key={field.label} >{field.label}</Form.Label>
+                                <Form.Check type="checkbox"
                                     key={field.id}
                                     {...register(`roles.${index}.isCheck`)}
                                 />
-                            </>
+                            </article>
                         ))}
-                    </form>
+                        </div>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
