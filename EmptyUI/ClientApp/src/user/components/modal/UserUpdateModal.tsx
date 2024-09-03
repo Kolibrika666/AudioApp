@@ -40,15 +40,16 @@ export const UpdateUserModal = () => {
         actions.setShowUpdateUserModal(false);
     };
 
-    const { register, handleSubmit, watch, control, formState: { errors } } =
+    const { register, handleSubmit, watch, control, formState: { errors, isValid } } =
         useForm<IUpdateForm>({
             reValidateMode: "onSubmit",
+            mode: "onBlur",
             defaultValues: {
                 name: user.name,
                 lastName: user.lastName,
                 age: user.age,
                 roles: userRoles(user.role),
-            }
+            }  
         })
 
     const { fields } = useFieldArray<IUpdateForm>({
@@ -85,9 +86,47 @@ export const UpdateUserModal = () => {
                     <p>Update name, last name and age</p>
                     <Form id="UpdateForm" onSubmit={handleSubmit(onSubmit)}>
                         <div className={s.inputGroup}>
-                            <input {...register("name", { required: true })} placeholder="Name" />
-                            <input {...register("lastName", { required: true })} placeholder="Last name" />
-                            <input {...register("age", { required: true })} placeholder="Age" />
+                            <input {...register("name", {
+                                required: 'Поле обязательно к заполнению',
+                                pattern: / [A - Za - z]{ 3} /,
+                                minLength: {
+                                    value: 2,
+                                    message: "Минимум 2 символа",
+                                },
+                                maxLength: {
+                                    value: 12,
+                                    message: "Максимум 12 символов",
+                                },
+                            })}
+                                placeholder="Name" />
+                            {errors?.name && <p>{errors?.name?.message || "Error!"}</p>}
+                            <input {...register("lastName", {
+                                required: 'Поле обязательно к заполнению',
+                                pattern: / [A - Za - z]{ 3} /,
+                                minLength: {
+                                    value: 2,
+                                    message: "Минимум 2 символа",
+                                },
+                                maxLength: {
+                                    value: 12,
+                                    message: "Максимум 12 символов",
+                                },
+                                })}
+                                placeholder="Last name" />
+                            {errors?.lastName && <p>{errors?.lastName?.message || "Error!"}</p>}
+                            <input {...register("age", {
+                                required: 'Поле обязательно к заполнению',
+                                pattern: / ^(1[89]|[2-9]\d)$ /,
+                                minLength: {
+                                    value: 1,
+                                    message: "Минимум 1 символ",
+                                },
+                                maxLength: {
+                                    value: 2,
+                                    message: "Максимум 2 символа",
+                                },
+                            })} placeholder="Age" />
+                            {errors?.age && <p>{errors?.age?.message || "Error!"}</p>}
                         </div>
                         <p>Update role</p>
                         <div
@@ -114,3 +153,4 @@ export const UpdateUserModal = () => {
         </Modal>
     </>
 }
+

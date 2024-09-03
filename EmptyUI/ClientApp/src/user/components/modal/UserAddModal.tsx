@@ -27,14 +27,15 @@ export const AddUserModal = () => {
             age: "",
             roles: fields,
         });
-        actions.setChange(1);
+        actions.setChange();
         actions.setShowAddUserModal(false);
     };
 
-    const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm<ICreateForm>({
+    const { register, handleSubmit, watch, reset, control, formState: { errors, isValid } } = useForm<ICreateForm>({
         defaultValues: {
             roles: userRolesCheckBoxses,
-        }
+        },
+        mode: "onBlur",
     });
 
     const { fields } = useFieldArray<ICreateForm>({
@@ -74,9 +75,60 @@ export const AddUserModal = () => {
                     <p>Input name, last name and age</p>
                     <Form id="AddForm" onSubmit={handleSubmit(onSubmit)}>
                         <div className={s.inputGroup}>
-                            <input {...register("name", { required: true })} placeholder="Name" />
-                            <input {...register("lastName", { required: true })} placeholder="Last name" />
-                            <input {...register("age", { required: true })} placeholder="Age" />
+                            
+                            <input 
+                                {...register("name",
+                                {
+                                    required: 'Поле обязательно к заполнению',
+                                    pattern:  / [A - Za - z]{ 3} /,
+                                     minLength: {
+                                        value: 2,
+                                        message: "Минимум 2 символа",
+                                    },
+                                    maxLength: {
+                                        value: 12,
+                                        message: "Максимум 12 символов",
+                                    },
+                                })}
+                                placeholder="Name"
+                            />
+
+                            {errors?.name && <p>{errors?.name?.message || "Error!"}</p>}
+
+                            <input {...register("lastName",
+                                {
+                                    required: 'Поле обязательно к заполнению',
+                                    pattern: / [A - Za - z]{ 3} /,
+                                    minLength: {
+                                        value: 2,
+                                        message: "Минимум 2 символа",
+                                    },
+                                    maxLength: {
+                                        value: 12,
+                                        message: "Максимум 12 символов",
+                                    },
+                                })
+
+                            }
+                                placeholder="Last name" />
+
+                            {errors?.lastName && <p>{errors?.lastName?.message || "Error!"}</p>}
+
+                            <input {...register("age", {
+                                required: 'Поле обязательно к заполнению',
+                                pattern: / ^(1[89]|[2-9]\d)$ /,
+                                minLength: {
+                                    value: 1,
+                                    message: "Минимум 1 символ",
+                                },
+                                maxLength: {
+                                    value: 2,
+                                    message: "Максимум 2 символа",
+                                },
+                            })}
+                                placeholder="Age" />
+
+                            {errors?.age && <p>{errors?.age?.message || "Error!"}</p>}
                         </div>
                         <p>Check role</p>
                         <div
@@ -97,7 +149,7 @@ export const AddUserModal = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button type="submit" form="AddForm" variant="primary">Save changes</Button>
+                    <Button type="submit" form="AddForm" variant="primary" disabled={!isValid}>Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>
