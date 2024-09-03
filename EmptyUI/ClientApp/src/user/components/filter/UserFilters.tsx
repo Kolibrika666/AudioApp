@@ -28,20 +28,21 @@ export const UserFilters = () => {
     const filterRole = useSelector(userSelectors.filterRole)
 
     const onSearchChange = (query?: string) => {
-        actions.setSkipPagination(0)
         actions.setFilterName(query)
+        actions.setResetcounter()
     }
 
     const onSelectChange = (query?: FormOption<number>) => {
-        actions.setSkipPagination(0)
         actions.setFilterAge(query?.value)
+        actions.setResetcounter()
     }
 
     const onMultiSelectChange = (query?: FormMultiOption<UserRoleEnum>[]) => {
-        actions.setSkipPagination(0)
+       
         const values = query?.reduce(
             (accumulator: UserRoleEnum, currentValue) => accumulator | currentValue.value,
             0,);
+        actions.setResetcounter()
         actions.setFilterRole(values)
         if (values == 0) actions.setFilterRole(undefined)
         else {

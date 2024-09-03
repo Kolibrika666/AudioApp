@@ -21,7 +21,7 @@ export const UserRow = () => {
         UserApi.deleteUser(id)
             .then(() => {
                 actions.setIsLoading(true);
-            }).finally(() => actions.setChange(1))
+            }).finally(() => actions.setChange())
     };
 
     const userRoles = (role: UserRoleEnum) => {

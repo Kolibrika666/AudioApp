@@ -47,6 +47,7 @@ export function BasePagination({ onChange, totalCount, pageSize = 10, resetCount
 
     useEffect(() => {
         if (resetCounter > 0) setSkip(0)
+        console.log(resetCounter)
     }, [resetCounter])
 
     const onSelectChange = (query: FormOption<PageSize>) => {

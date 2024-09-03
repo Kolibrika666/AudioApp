@@ -109,7 +109,7 @@ export const userSlice = buildAppSlice({
         takePagination: state => state.takePagination,
         totalCount: state => state.totalCount,
         change: state => state.change,
-        resetCounter: state => state.change,
+        resetCounter: state => state.resetCounter,
     }
 });
 
