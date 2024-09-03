@@ -1,20 +1,17 @@
 import { userActions, userSelectors } from "./userSlice"
 import { useSelector } from "react-redux"
 import s from "./UserPage.module.scss"
-import { AddUserModal } from "./components/modal/UserAddModal"
-import { UserTable } from "./components/table/UserTable"
-import { UserFilters } from "./components/filter/UserFilters"
 import { useActionCreators } from "../store"
 import { BasePagination, Load } from "../shared/ui"
 import { Button } from "react-bootstrap"
-import { useEffect } from "react"
+import { AddUserModal, UserFilters, UserTable } from "./components"
 
 export const UserPage = () => {
 
-    const actions = useActionCreators(userActions)
-    const isloading = useSelector(userSelectors.isLoading)
-    const totalCount = useSelector(userSelectors.totalCount)
-    const resetCounter = useSelector(userSelectors.resetCounter)
+    const actions = useActionCreators(userActions);
+    const isloading = useSelector(userSelectors.isLoading);
+    const totalCount = useSelector(userSelectors.totalCount);
+    const resetCounter = useSelector(userSelectors.resetCounter);
 
     const handleOpen = () => actions.setShowAddUserModal(true);
 

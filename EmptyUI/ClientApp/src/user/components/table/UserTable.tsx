@@ -16,7 +16,7 @@ export const UserTable = () => {
                 </tr>
             </thead>
             <tbody>
-               <UserRow/>
+                <UserRow />
             </tbody>
         </Table>
     </>

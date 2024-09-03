@@ -3,7 +3,9 @@ import s from "./Load.module.css"
 
 
 export const Load = () => {
-    return <div className={s.spinner}>
-        <Spinner animation="border" variant= "secondary" />
-    </div>;
+    return (
+        <div className={s.spinner}>
+            <Spinner animation="border" variant="secondary" />
+        </div >
+    )
 };

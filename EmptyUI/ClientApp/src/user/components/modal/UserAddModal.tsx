@@ -17,8 +17,8 @@ interface ICreateForm {
 
 export const AddUserModal = () => {
 
-    const show = useSelector(userSelectors.showAddUserModal)
-    const actions = useActionCreators(userActions)
+    const show = useSelector(userSelectors.showAddUserModal);
+    const actions = useActionCreators(userActions);
 
     const handleClose = () => {
         reset({
@@ -75,26 +75,23 @@ export const AddUserModal = () => {
                     <p>Input name, last name and age</p>
                     <Form id="AddForm" onSubmit={handleSubmit(onSubmit)}>
                         <div className={s.inputGroup}>
-                            
-                            <input 
+                            <input
                                 {...register("name",
-                                {
-                                    required: 'Поле обязательно к заполнению',
-                                    pattern:  / [A - Za - z]{ 3} /,
-                                     minLength: {
-                                        value: 2,
-                                        message: "Минимум 2 символа",
-                                    },
-                                    maxLength: {
-                                        value: 12,
-                                        message: "Максимум 12 символов",
-                                    },
-                                })}
+                                    {
+                                        required: 'Поле обязательно к заполнению',
+                                        pattern: / [A - Za - z]{ 3} /,
+                                        minLength: {
+                                            value: 2,
+                                            message: "Минимум 2 символа",
+                                        },
+                                        maxLength: {
+                                            value: 12,
+                                            message: "Максимум 12 символов",
+                                        },
+                                    })}
                                 placeholder="Name"
                             />
-
                             {errors?.name && <p>{errors?.name?.message || "Error!"}</p>}
-
                             <input {...register("lastName",
                                 {
                                     required: 'Поле обязательно к заполнению',
@@ -108,12 +105,9 @@ export const AddUserModal = () => {
                                         message: "Максимум 12 символов",
                                     },
                                 })
-
                             }
                                 placeholder="Last name" />
-
                             {errors?.lastName && <p>{errors?.lastName?.message || "Error!"}</p>}
-
                             <input {...register("age", {
                                 required: 'Поле обязательно к заполнению',
                                 pattern: / ^(1[89]|[2-9]\d)$ /,
@@ -127,23 +121,19 @@ export const AddUserModal = () => {
                                 },
                             })}
                                 placeholder="Age" />
-
                             {errors?.age && <p>{errors?.age?.message || "Error!"}</p>}
                         </div>
                         <p>Check role</p>
-                        <div
-                            className={s.formGroup}
-                        >
-                    
+                        <div className={s.formGroup}>
                             {fields.map((field, index) => (
                                 <article key={field.id}>
                                     <Form.Label key={field.label} >{field.label}</Form.Label>
-                                <Form.Check type="checkbox"
-                                    key={field.id}
-                                    {...register(`roles.${index}.isCheck`)}
-                                />
-                            </article>
-                        ))}
+                                    <Form.Check type="checkbox"
+                                        key={field.id}
+                                        {...register(`roles.${index}.isCheck`)}
+                                    />
+                                </article>
+                            ))}
                         </div>
                     </Form>
                 </Modal.Body>

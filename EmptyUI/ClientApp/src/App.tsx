@@ -8,9 +8,8 @@ import './custom.scss';
 export const App = () => {
     return <>
         <Provider store={store}>
-        <UserPage/>
+            <UserPage />
         </Provider>
-        
     </>;
 };
 

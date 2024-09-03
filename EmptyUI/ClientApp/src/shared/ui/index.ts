@@ -4,7 +4,6 @@ import { BasePagination } from "./pagination/BasePagination"
 import { Load } from "./load/Load"
 import { BaseMultiSelect, type FormMultiOption } from "./multiSelect/BaseMultiSelect"
 
-
 export {
     BaseSearch,
     BaseSelect,

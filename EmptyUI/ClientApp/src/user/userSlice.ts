@@ -1,7 +1,6 @@
 import { asyncThunkCreator, buildCreateSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IUserFilterVm, UserRoleEnum, UserVm } from "./user.models";
 import { UserApi } from "./user.api";
-
 interface IState {
     showAddUserModal: boolean;
     showUpdateUserModal: boolean;
@@ -112,8 +111,6 @@ export const userSlice = buildAppSlice({
         resetCounter: state => state.resetCounter,
     }
 });
-
-
 
 export const userReducer = userSlice.reducer;
 export const userActions = userSlice.actions;

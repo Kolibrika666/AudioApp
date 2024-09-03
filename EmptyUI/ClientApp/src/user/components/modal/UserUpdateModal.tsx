@@ -31,12 +31,12 @@ const userRoles = (role: UserRoleEnum) => {
 
 export const UpdateUserModal = () => {
 
-    const actions = useActionCreators(userActions)
-    const show = useSelector(userSelectors.showUpdateUserModal)
-    const user = useSelector(userSelectors.user)
+    const actions = useActionCreators(userActions);
+    const show = useSelector(userSelectors.showUpdateUserModal);
+    const user = useSelector(userSelectors.user);
 
     const handleClose = () => {
-        actions.setChange(1);
+        actions.setChange();
         actions.setShowUpdateUserModal(false);
     };
 
@@ -49,8 +49,8 @@ export const UpdateUserModal = () => {
                 lastName: user.lastName,
                 age: user.age,
                 roles: userRoles(user.role),
-            }  
-        })
+            }
+        });
 
     const { fields } = useFieldArray<IUpdateForm>({
         control,
@@ -111,7 +111,7 @@ export const UpdateUserModal = () => {
                                     value: 12,
                                     message: "Максимум 12 символов",
                                 },
-                                })}
+                            })}
                                 placeholder="Last name" />
                             {errors?.lastName && <p>{errors?.lastName?.message || "Error!"}</p>}
                             <input {...register("age", {
@@ -129,10 +129,7 @@ export const UpdateUserModal = () => {
                             {errors?.age && <p>{errors?.age?.message || "Error!"}</p>}
                         </div>
                         <p>Update role</p>
-                        <div
-                            className={s.formGroup}
-                        >
-
+                        <div className={s.formGroup}>
                             {fields.map((field, index) => (
                                 <article key={field.id}>
                                     <Form.Label key={field.label}>{field.label}</Form.Label>
