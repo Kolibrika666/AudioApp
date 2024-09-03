@@ -16,6 +16,7 @@ interface IState {
     skipPagination: number;
     takePagination: number;
     change: number;
+    resetCounter: number;
 };
 
 const initialState: IState = {
@@ -29,6 +30,7 @@ const initialState: IState = {
     skipPagination: 0,
     takePagination: 10,
     change: 0,
+    resetCounter: 0,
 };
 
 export const buildAppSlice = buildCreateSlice({
@@ -85,8 +87,11 @@ export const userSlice = buildAppSlice({
         setTakePagination: creator.reducer((state, action: PayloadAction<number>) => {
             state.takePagination = action.payload;
         }),
-        setShange: creator.reducer((state, action: PayloadAction<number>) => {
-            state.change += action.payload;
+        setChange: creator.reducer((state) => {
+            ++state.change;
+        }),
+        setResetcounter: creator.reducer((state) => {
+            ++state.resetCounter;
         }),
 
     }),
@@ -104,6 +109,7 @@ export const userSlice = buildAppSlice({
         takePagination: state => state.takePagination,
         totalCount: state => state.totalCount,
         change: state => state.change,
+        resetCounter: state => state.change,
     }
 });
 

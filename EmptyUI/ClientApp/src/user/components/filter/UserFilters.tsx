@@ -28,25 +28,25 @@ export const UserFilters = () => {
     const filterRole = useSelector(userSelectors.filterRole)
 
     const onSearchChange = (query?: string) => {
+        actions.setSkipPagination(0)
         actions.setFilterName(query)
     }
 
     const onSelectChange = (query?: FormOption<number>) => {
+        actions.setSkipPagination(0)
         actions.setFilterAge(query?.value)
     }
 
     const onMultiSelectChange = (query?: FormMultiOption<UserRoleEnum>[]) => {
-            const values = query?.reduce(
-                (accumulator: UserRoleEnum, currentValue) => accumulator | currentValue.value,
-                0,);
-        console.log(query)
+        actions.setSkipPagination(0)
+        const values = query?.reduce(
+            (accumulator: UserRoleEnum, currentValue) => accumulator | currentValue.value,
+            0,);
         actions.setFilterRole(values)
-        /*if (values == 0) actions.setFilterRole(undefined)*/
-        //else {
-        //    actions.setFilterRole(values)
-        //};
-
-
+        if (values == 0) actions.setFilterRole(undefined)
+        else {
+            actions.setFilterRole(values)
+        };
     }
 
     useEffect(() => {

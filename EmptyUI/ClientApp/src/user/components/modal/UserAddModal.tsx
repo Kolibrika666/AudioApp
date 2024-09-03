@@ -27,7 +27,7 @@ export const AddUserModal = () => {
             age: "",
             roles: fields,
         });
-        actions.setShange(1);
+        actions.setChange(1);
         actions.setShowAddUserModal(false);
     };
 
@@ -97,7 +97,7 @@ export const AddUserModal = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button type="submit" form="AddForm" variant="danger">Save changes</Button>
+                    <Button type="submit" form="AddForm" variant="primary">Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>

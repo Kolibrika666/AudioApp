@@ -36,7 +36,7 @@ export const UpdateUserModal = () => {
     const user = useSelector(userSelectors.user)
 
     const handleClose = () => {
-        actions.setShange(1);
+        actions.setChange(1);
         actions.setShowUpdateUserModal(false);
     };
 
@@ -108,7 +108,7 @@ export const UpdateUserModal = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button type="submit" form="UpdateForm" variant="danger">Save changes</Button>
+                    <Button type="submit" form="UpdateForm" variant="primary">Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>

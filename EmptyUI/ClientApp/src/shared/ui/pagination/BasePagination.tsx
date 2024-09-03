@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { numberArray, useDebounce } from "../../hooks";
+import { numberArray} from "../../hooks";
 import { BaseSelect } from "../select/BaseSelect";
 import s from "./BasePagination.module.scss"
-import "../../../App.module.scss"
 import { Button, Pagination } from "react-bootstrap";
+import f from "compose-function";
 
 type FormOption<T> = {
     label: string;
@@ -31,14 +31,23 @@ interface PaginationProps {
     pageSize?: PageSize;
     totalCount: number;
     onChange: (take: number, skip: number) => void;
+    resetCounter: number;
 }
-export function BasePagination({ onChange, totalCount, pageSize = 10 }: PaginationProps) {
+export function BasePagination({ onChange, totalCount, pageSize = 10, resetCounter = 0}: PaginationProps) {
 
     const [take, setTake] = useState<number>(pageSize)
     const [skip, setSkip] = useState(0)
-
     const pagesCount: number = Math.ceil(totalCount / take);
     const pages = numberArray(pagesCount)
+    let firstIndex: number
+
+    useEffect(() => {
+        onChange(skip, take)
+    }, [skip, take])
+
+    useEffect(() => {
+        if (resetCounter > 0) setSkip(0)
+    }, [resetCounter])
 
     const onSelectChange = (query: FormOption<PageSize>) => {
         setSkip(0)
@@ -46,10 +55,9 @@ export function BasePagination({ onChange, totalCount, pageSize = 10 }: Paginati
     }
 
     const description = useMemo(() => {
-        let firstIndex: number
         totalCount === 0 ? firstIndex = skip : firstIndex = skip + 1
         return `Показаны ${firstIndex} - ${skip + take > totalCount ? totalCount : skip + take} из ${totalCount}`
-    }, [skip, totalCount, take])
+    }, [skip, take, totalCount])
 
     const onPageClick = (e: number) => {
         setSkip(take * (e - 1))
@@ -65,10 +73,6 @@ export function BasePagination({ onChange, totalCount, pageSize = 10 }: Paginati
         prev + take <= totalCount ? setSkip(prev + take) : setSkip(prev)
     }
 
-    useEffect(() => {
-        onChange(skip, take)
-    }, [skip, take])
-
     return (
         <>
             <p>{description}</p>
@@ -78,14 +82,13 @@ export function BasePagination({ onChange, totalCount, pageSize = 10 }: Paginati
                     <Pagination.Prev onClick={onPrevPagination} />
                     {pages.map((e) =>
                         < Pagination.Item 
-                            active={(skip === (e - 1) * take)}
+                            active={(skip == (e - 1) * take)}
                             key={e}
                             onClick={() => onPageClick(e)
                             }>{e}</Pagination.Item>)
                     }
                     <Pagination.Next onClick={onNextPagination} />
                 </Pagination>
-                <Button variant="primary">1</Button>
             </div>
         </>
     )
