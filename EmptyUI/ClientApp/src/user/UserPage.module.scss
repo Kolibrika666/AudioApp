@@ -1,0 +1,19 @@
+﻿
+.userPage {
+    position: relative;
+    padding: 50px;
+    display: block;
+    box-sizing: border-box;
+
+    article {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h3 {
+        color: rgb(95, 79, 66);
+        border: none;
+    }
+}
+
+
