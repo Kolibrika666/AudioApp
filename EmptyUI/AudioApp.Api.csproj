@@ -42,8 +42,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="ClientApp\src\features\" />
-		<Folder Include="ClientApp\src\store\" />
+		<Folder Include="ClientApp\src\user\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
 
